@@ -1,0 +1,16 @@
+name: Sync To Gitee
+on:
+  push:
+    branches: [main]
+  workflow_dispatch:
+  
+jobs:
+  sync:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: wearerequired/git-mirror-action@master
+        env:
+          SSH_PRIVATE_KEY: ${{ secrets.GITEE_PRIVATE_KEY }}
+        with:
+          source-repo: "git@github.com:aladdin-chu/travel-card-ce.git"
+          destination-repo: "git@gitee.com:entropycloud/travel-card-ce.git"
