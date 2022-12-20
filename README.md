@@ -49,7 +49,10 @@ $ npm run build
 - [@aladdin](https://github.com/aladdin-chu)
 
 ## Acknowledgments
-- We got the idea from[「第一财经」](https://mp.weixin.qq.com/s/U_Ao8BctwznDe-sKo-Vw9w)
+- We got the idea from
+  - [「第一财经」](https://mp.weixin.qq.com/s/U_Ao8BctwznDe-sKo-Vw9w)
+  - [@码农游世界](https://mp.weixin.qq.com/mp/profile_ext?action=home&__biz=MzA5NjIxNzEzNA==&scene=124#wechat_redirect)
+  - [芊云全景](https://vr.he29.com/)
 - And the  Chinese city data from 
   - [uiwjs/province-city-china](https://github.com/uiwjs/province-city-china)
   - [国家统计局](http://www.stats.gov.cn/tjsj/tjbz/tjyqhdmhcxhfdm/)
