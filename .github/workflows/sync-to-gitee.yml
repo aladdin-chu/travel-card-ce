@@ -1,4 +1,4 @@
-name: Sync To Gitee
+name: Sync To Gitee And Create Pages
 on:
   push:
     branches: [main]
@@ -8,9 +8,19 @@ jobs:
   sync:
     runs-on: ubuntu-latest
     steps:
-      - uses: wearerequired/git-mirror-action@master
+      - name: Sync to Gitee
+        uses: wearerequired/git-mirror-action@master
         env:
           SSH_PRIVATE_KEY: ${{ secrets.GITEE_PRIVATE_KEY }}
         with:
           source-repo: "git@github.com:aladdin-chu/travel-card-ce.git"
           destination-repo: "git@gitee.com:entropycloud/travel-card-ce.git"
+      - name: Build Gitee Pages
+        uses: yanglbme/gitee-pages-action@main
+        env:
+          SSH_PRIVATE_KEY: ${{ secrets.GITEE_PRIVATE_KEY }}
+        with:
+          gitee-username: aladdin
+          gitee-password: ${{ secrets.GITEE_PASSWORD }}
+          gitee-repo: entropycloud/travel-card-ce
+          branch: main
