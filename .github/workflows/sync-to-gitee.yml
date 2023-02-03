@@ -23,4 +23,4 @@ jobs:
           gitee-username: aladdin
           gitee-password: ${{ secrets.GITEE_PASSWORD }}
           gitee-repo: entropycloud/travel-card-ce
-          branch: gh-pages
+          branch: main
