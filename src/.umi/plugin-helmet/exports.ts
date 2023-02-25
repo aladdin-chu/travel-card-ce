@@ -1,3 +1,3 @@
 // @ts-nocheck
 // @ts-ignore
-export { Helmet } from '/Users/aladdin/Downloads/travel-card-github/node_modules/react-helmet';
+export { Helmet } from "/Users/Aladdin/Downloads/travel-card-github/node_modules/react-helmet";

@@ -1,6 +1,6 @@
 // @ts-nocheck
 /**
- * Base on https://github.com/umijs//Users/aladdin/Downloads/travel-card-github/node_modules/umi-request
+ * Base on https://github.com/umijs//Users/Aladdin/Downloads/travel-card-github/node_modules/umi-request
  */
 import {
   extend,
@@ -13,16 +13,18 @@ import {
   RequestResponse,
   RequestInterceptor,
   ResponseInterceptor,
-} from '/Users/aladdin/Downloads/travel-card-github/node_modules/umi-request';
+} from "/Users/Aladdin/Downloads/travel-card-github/node_modules/umi-request";
 // @ts-ignore
 
-import { ApplyPluginsType } from 'umi';
-import { history, plugin } from '../core/umiExports';
-            
+import { ApplyPluginsType } from "umi";
+import { history, plugin } from "../core/umiExports";
+
 // decoupling with antd UI library, you can using `alias` modify the ui methods
 // @ts-ignore
-import { message, notification } from '@umijs/plugin-request/lib/ui';
-import useUmiRequest, { UseRequestProvider } from '/Users/aladdin/Downloads/travel-card-github/node_modules/@ahooksjs/use-request';
+import { message, notification } from "@umijs/plugin-request/lib/ui";
+import useUmiRequest, {
+  UseRequestProvider,
+} from "/Users/Aladdin/Downloads/travel-card-github/node_modules/@ahooksjs/use-request";
 import {
   BaseOptions,
   BasePaginatedOptions,
@@ -38,7 +40,7 @@ import {
   PaginatedOptionsWithFormat,
   PaginatedParams,
   PaginatedResult,
-} from '/Users/aladdin/Downloads/travel-card-github/node_modules/@ahooksjs/use-request/lib/types';
+} from "/Users/Aladdin/Downloads/travel-card-github/node_modules/@ahooksjs/use-request/lib/types";
 
 type ResultWithData<T = any> = { data?: T; [key: string]: any };
 
@@ -46,50 +48,50 @@ function useRequest<
   R = any,
   P extends any[] = any,
   U = any,
-  UU extends U = any,
+  UU extends U = any
 >(
   service: CombineService<R, P>,
-  options: OptionsWithFormat<R, P, U, UU>,
+  options: OptionsWithFormat<R, P, U, UU>
 ): BaseResult<U, P>;
 function useRequest<R extends ResultWithData = any, P extends any[] = any>(
   service: CombineService<R, P>,
-  options?: BaseOptions<R['data'], P>,
-): BaseResult<R['data'], P>;
+  options?: BaseOptions<R["data"], P>
+): BaseResult<R["data"], P>;
 function useRequest<R extends LoadMoreFormatReturn = any, RR = any>(
   service: CombineService<RR, LoadMoreParams<R>>,
-  options: LoadMoreOptionsWithFormat<R, RR>,
+  options: LoadMoreOptionsWithFormat<R, RR>
 ): LoadMoreResult<R>;
 function useRequest<
   R extends ResultWithData<LoadMoreFormatReturn | any> = any,
-  RR extends R = any,
+  RR extends R = any
 >(
-  service: CombineService<R, LoadMoreParams<R['data']>>,
-  options: LoadMoreOptions<RR['data']>,
-): LoadMoreResult<R['data']>;
+  service: CombineService<R, LoadMoreParams<R["data"]>>,
+  options: LoadMoreOptions<RR["data"]>
+): LoadMoreResult<R["data"]>;
 
 function useRequest<R = any, Item = any, U extends Item = any>(
   service: CombineService<R, PaginatedParams>,
-  options: PaginatedOptionsWithFormat<R, Item, U>,
+  options: PaginatedOptionsWithFormat<R, Item, U>
 ): PaginatedResult<Item>;
 function useRequest<Item = any, U extends Item = any>(
   service: CombineService<
     ResultWithData<PaginatedFormatReturn<Item>>,
     PaginatedParams
   >,
-  options: BasePaginatedOptions<U>,
+  options: BasePaginatedOptions<U>
 ): PaginatedResult<Item>;
 function useRequest(service: any, options: any = {}) {
   return useUmiRequest(service, {
-    formatResult: result => result?.data,
+    formatResult: (result) => result?.data,
     requestMethod: (requestOptions: any) => {
-      if (typeof requestOptions === 'string') {
+      if (typeof requestOptions === "string") {
         return request(requestOptions);
       }
-      if (typeof requestOptions === 'object') {
+      if (typeof requestOptions === "object") {
         const { url, ...rest } = requestOptions;
         return request(url, rest);
       }
-      throw new Error('request options error');
+      throw new Error("request options error");
     },
     ...options,
   });
@@ -127,11 +129,11 @@ interface ErrorInfoStructure {
 interface RequestError extends Error {
   data?: any;
   info?: ErrorInfoStructure;
-  request?: Context['req'];
-  response?: Context['res'];
+  request?: Context["req"];
+  response?: Context["res"];
 }
 
-const DEFAULT_ERROR_PAGE = '/exception';
+const DEFAULT_ERROR_PAGE = "/exception";
 
 let requestMethodInstance: RequestMethod;
 const getRequestMethod = () => {
@@ -143,7 +145,7 @@ const getRequestMethod = () => {
   // runtime 配置可能应为依赖顺序的问题在模块初始化的时候无法获取，所以需要封装一层在异步调用后初始化相关方法
   // 当用户的 app.ts 中依赖了该文件的情况下就该模块的初始化时间就会被提前，无法获取到运行时配置
   const requestConfig: RequestConfig = plugin.applyPlugins({
-    key: 'request',
+    key: "request",
     type: ApplyPluginsType.modify,
     initialValue: {},
   });
@@ -158,7 +160,7 @@ const getRequestMethod = () => {
         throw error;
       }
       let errorInfo: ErrorInfoStructure | undefined;
-      if (error.name === 'ResponseError' && error.data && error.request) {
+      if (error.name === "ResponseError" && error.data && error.request) {
         const ctx: Context = {
           req: error.request,
           res: error.response,
@@ -205,7 +207,7 @@ const getRequestMethod = () => {
             break;
         }
       } else {
-        message.error(error.message || 'Request error, please retry.');
+        message.error(error.message || "Request error, please retry.");
       }
       throw error;
     },
@@ -229,7 +231,7 @@ const getRequestMethod = () => {
     if (errorInfo.success === false) {
       // 抛出错误到 errorHandler 中处理
       const error: RequestError = new Error(errorInfo.errorMessage);
-      error.name = 'BizError';
+      error.name = "BizError";
       error.data = resData;
       error.info = errorInfo;
       error.response = res;
@@ -259,15 +261,15 @@ const getRequestMethod = () => {
 interface RequestMethodInUmi<R = false> {
   <T = any>(
     url: string,
-    options: RequestOptionsWithResponse & { skipErrorHandler?: boolean },
+    options: RequestOptionsWithResponse & { skipErrorHandler?: boolean }
   ): Promise<RequestResponse<T>>;
   <T = any>(
     url: string,
-    options: RequestOptionsWithoutResponse & { skipErrorHandler?: boolean },
+    options: RequestOptionsWithoutResponse & { skipErrorHandler?: boolean }
   ): Promise<T>;
   <T = any>(
     url: string,
-    options?: RequestOptionsInit & { skipErrorHandler?: boolean },
+    options?: RequestOptionsInit & { skipErrorHandler?: boolean }
   ): R extends true ? Promise<RequestResponse<T>> : Promise<T>;
 }
 const request: RequestMethodInUmi = (url: any, options: any) => {

@@ -3,6 +3,7 @@
   "scripts": {
     "start": "cross-env PORT=8556 ENV=1 umi dev",
     "build": "umi build",
+    "page": "gh-pages -d dist",
     "postinstall": "umi generate tmp",
     "prettier": "prettier --write '**/*.{js,jsx,tsx,ts,less,md,json}'",
     "test": "umi-test",
@@ -34,6 +35,7 @@
     "@types/react-dom": "^17.0.0",
     "@umijs/preset-react": "^2.1.1",
     "@umijs/test": "^3.5.21",
+    "gh-pages": "^5.0.0",
     "lint-staged": "^10.0.7",
     "prettier": "^2.2.0",
     "typescript": "^4.1.2",
