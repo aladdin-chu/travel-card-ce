@@ -3,7 +3,7 @@
   "scripts": {
     "start": "cross-env PORT=8556 ENV=1 umi dev",
     "build": "umi build",
-    "page": "gh-pages -d dist",
+    "page": "cross-env REPO=gitee umi build && gh-pages -d dist",
     "postinstall": "umi generate tmp",
     "prettier": "prettier --write '**/*.{js,jsx,tsx,ts,less,md,json}'",
     "test": "umi-test",
